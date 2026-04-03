@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useNavigate, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LandingPage from './LandingPage';
 import Dashboard from './Dashboard';
 import Editor from './Editor';
@@ -43,10 +43,10 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const auth = useContext(AuthContext);
   if (!auth.token) return <Navigate to="/auth" />;
-  return children;
+  return <>{children}</>;
 };
 
 export default function App() {
