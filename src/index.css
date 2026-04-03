@@ -1,0 +1,196 @@
+:root {
+  /* Default Light Theme (Minimal/Editorial) */
+  --bg-color: #ffffff;
+  --surface-color: #f7f7f7;
+  --text-primary: #111111;
+  --text-secondary: #555555;
+  --accent-color: #000000;
+  --border-color: #e5e5e5;
+  --radius-main: 0px;
+  --font-family: 'Inter', sans-serif;
+  --btn-style: solid; /* custom logic in CSS */
+  --spacing-unit: 8px;
+}
+
+/* Vibe 1: Minimal / Editorial */
+[data-vibe="minimal"] {
+  --bg-color: #ffffff;
+  --surface-color: #f9f9f9;
+  --text-primary: #121212;
+  --text-secondary: #666666;
+  --accent-color: #0d0d0d;
+  --border-color: #e5e5e5;
+  --radius-main: 0px;
+  --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* Vibe 2: Neo-brutal */
+[data-vibe="neobrutal"] {
+  --bg-color: #ffde59;
+  --surface-color: #ffffff;
+  --text-primary: #000000;
+  --text-secondary: #333333;
+  --accent-color: #ff5757;
+  --border-color: #000000;
+  --radius-main: 0px;
+  --font-family: 'Courier New', Courier, monospace;
+  /* Specific Brutalist shadow */
+  --box-shadow: 4px 4px 0px 0px #000;
+}
+
+/* Vibe 3: Dark / Neon */
+[data-vibe="dark-neon"] {
+  --bg-color: #0f0f13;
+  --surface-color: #1c1c21;
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --accent-color: #00ffcc;
+  --border-color: #333333;
+  --radius-main: 12px;
+  --font-family: 'Space Grotesk', sans-serif;
+  --box-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+}
+
+/* Vibe 4: Pastel / Soft */
+[data-vibe="pastel"] {
+  --bg-color: #fdf6e3;
+  --surface-color: #fffaf0;
+  --text-primary: #5c4b51;
+  --text-secondary: #8c7b81;
+  --accent-color: #f4a261;
+  --border-color: #f0e6d2;
+  --radius-main: 24px;
+  --font-family: 'Quicksand', sans-serif;
+  --box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+}
+
+/* Vibe 5: Luxury / Serif */
+[data-vibe="luxury"] {
+  --bg-color: #1a1a1a;
+  --surface-color: #262626;
+  --text-primary: #f0f0f0;
+  --text-secondary: #b3b3b3;
+  --accent-color: #d4af37; /* Gold */
+  --border-color: #404040;
+  --radius-main: 4px;
+  --font-family: 'Playfair Display', serif;
+  --box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+}
+
+/* Vibe 6: Retro / Pixel */
+[data-vibe="retro"] {
+  --bg-color: #000080;
+  --surface-color: #c0c0c0;
+  --text-primary: #ffffff; /* White for bg */
+  --text-secondary: #000000; /* Black for surface */
+  --accent-color: #ff00ff;
+  --border-color: #ffffff;
+  --radius-main: 0px;
+  --font-family: 'Press Start 2P', monospace;
+  --box-shadow: inset -2px -2px #000, inset 2px 2px #fff;
+}
+
+/* Global Styles using variables */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Base UI Components based on variables */
+.v-btn {
+  background-color: var(--accent-color);
+  color: var(--bg-color); /* Contrast */
+  border: 1px solid var(--border-color);
+  padding: 12px 24px;
+  border-radius: var(--radius-main);
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--box-shadow, none);
+  transition: transform 0.1s, opacity 0.2s;
+}
+
+.v-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+.v-btn:active {
+  transform: translateY(0);
+}
+
+.v-surface {
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-main);
+  box-shadow: var(--box-shadow, none);
+}
+
+.v-input {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 12px;
+  border-radius: var(--radius-main);
+  font-family: inherit;
+  width: 100%;
+}
+
+.v-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+}
+
+/* Specific text coloring for Retro on surface */
+[data-vibe="retro"] .v-surface {
+  color: var(--text-secondary);
+}
+
+/* Skeleton Loader Animation */
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+.skeleton {
+  background: #f6f7f8;
+  background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+  background-repeat: no-repeat;
+  background-size: 1000px 100% border-box; 
+  display: inline-block;
+  animation: shimmer 2s infinite linear forwards;
+}
+[data-vibe="dark-neon"] .skeleton, [data-vibe="luxury"] .skeleton {
+  background: #2a2a2a;
+  background-image: linear-gradient(to right, #2a2a2a 0%, #3a3a3a 20%, #2a2a2a 40%, #2a2a2a 100%);
+}
+
+/* Fade in animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: revealAnim 0.6s ease forwards;
+}
+@keyframes revealAnim {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color); 
+  border-radius: 4px;
+}

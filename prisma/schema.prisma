@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  pages     Page[]
+}
+
+model Page {
+  id                 String              @id @default(uuid())
+  title              String
+  slug               String              @unique
+  theme              String // "vibe" theme name
+  sections           String // JSON string to hold sections data
+  isPublished        Boolean             @default(false)
+  viewCount          Int                 @default(0)
+  userId             String
+  user               User                @relation(fields: [userId], references: [id])
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  ContactSubmissions ContactSubmission[]
+}
+
+model ContactSubmission {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  message   String
+  pageId    String
+  page      Page     @relation(fields: [pageId], references: [id])
+  createdAt DateTime @default(now())
+}
